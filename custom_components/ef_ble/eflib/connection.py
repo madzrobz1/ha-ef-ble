@@ -728,7 +728,7 @@ class Connection:
 
         if response_handler:
             await self._client.start_notify(
-                self._notify_characteristic, response_handler
+                self._notify_characteristic, response_handler, bluez={"use_start_notify": True}
             )
         await self._client.write_gatt_char(
             self._write_characteristic, bytearray(send_data)
@@ -788,7 +788,7 @@ class Connection:
         self._encryption = Type1Encryption(session_key, iv)
 
         await self._client.start_notify(
-            self._notify_characteristic, self.listenForDataHandler
+            self._notify_characteristic, self.listenForDataHandler, bluez={"use_start_notify": True}
         )
 
         await self.send_auth_status_packet()
